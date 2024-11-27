@@ -10,6 +10,5 @@ def main():
 
     user.save_to_db()
 
-
 if __name__ == "__main__":
     main()
