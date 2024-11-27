@@ -23,7 +23,9 @@ def setup_database():
         description TEXT NOT NULL,
         time_create DATE NOT NULL,
         time_finish DATE NOT NULL,
-        priority TEXT NOT NULL
+        priority TEXT NOT NULL,
+        user_nr INTEGER,
+        FOREIGN KEY (user_nr) REFERENCES users(id)
     )
     ''')
 
