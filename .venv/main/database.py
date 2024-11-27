@@ -16,6 +16,17 @@ CREATE TABLE IF NOT EXISTS users (
 )
 ''')
 
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS task (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    time_create DATE NOT NULL,
+    time_finish DATE NOT NULL,
+    priority TEXT NOT NULL
+''')
+
+
 connection.commit()
 connection.close()
 print("Daten wurden erfolgreich gespeichert")
