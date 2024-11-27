@@ -1,7 +1,6 @@
 import sqlite3
 
 class User:
-
     def __init__(self, name=None, surname=None, birthday=None, gender=None, username=None, password=None):
         self.name = name
         self.surname = surname
@@ -37,9 +36,7 @@ class User:
         self.gender = input("Enter your Gender: ")
         self.username = input("Enter your Username: ")
         self.password = input("Enter your Password: ")
-
         self.validate_input_types()
-
     def create_user(self):
         self.get_informations()
         return self
@@ -59,6 +56,3 @@ class User:
 
     def __str__(self):
         return f"User(name={self.name}, surname={self.surname}, birthday={self.birthday}, gender={self.gender}, username={self.username}, password={self.password})"
-
-user = User().create_user()
-print(user)

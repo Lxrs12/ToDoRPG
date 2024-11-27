@@ -1,4 +1,4 @@
-from user import user  #Import User Class
+from user import User  #Import User Class
 import sqlite3
 import database  #Import Database
 
