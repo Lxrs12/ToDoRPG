@@ -1,6 +1,15 @@
-print("Hallo")
+from User import User  #Import User Class
+import sqlite3
+import database  #Import Database
 
-def test():
-    print("Hallo")
+def main():
+    database.setup_database()
 
-test()
+    user = User().create_user()
+    print(user)
+
+    user.save_to_db()
+
+
+if __name__ == "__main__":
+    main()
