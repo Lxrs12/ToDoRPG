@@ -8,20 +8,19 @@ class User:
         self.password = password
 
     def validate_input_types(self):
-        valid = True
-
+# Function to validate the inputs
         if not isinstance(self.username, str):
             ui.label("Username must be a string")
-            valid = False
+
         if not isinstance(self.password, str):
             ui.label("Password must be a string")
-            valid = False
-        if len(self.password) < 6:  # Passwort muss mindestens 6 Zeichen lang sein
+
+        if len(self.password) < 6:
             ui.label("Password must be at least 6 characters long")
-            valid = False
 
 
     def save_to_db(self):
+# Function that saves the User to the Database
         connection = sqlite3.connect("database.db")
         cursor = connection.cursor()
 
@@ -35,6 +34,7 @@ class User:
 
 
     def get_information(self):
+# Function that creates a gui and makes it able to give the User inputs
         with ui.card():
             ui.label("User Registartion")
             race_input = ui.select(
@@ -48,6 +48,7 @@ class User:
 
 
     def submit(self, race_input, username_input, password_input):
+# This Function is about the Button so that the user can be saved
         user = User(
             race=race_input.value,
             username=username_input.value,
@@ -66,4 +67,3 @@ class User:
 user = User()
 user.get_information()
 ui.run()
-
