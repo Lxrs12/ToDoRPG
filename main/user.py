@@ -1,3 +1,4 @@
+import nicegui
 import sqlite3
 
 class User:
@@ -37,6 +38,7 @@ class User:
         self.username = input("Enter your Username: ")
         self.password = input("Enter your Password: ")
         self.validate_input_types()
+        
     def create_user(self):
         self.get_informations()
         return self

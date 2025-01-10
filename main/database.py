@@ -11,7 +11,7 @@ def setup_database():
         surname TEXT NOT NULL,
         birthday TEXT NOT NULL,
         gender TEXT NOT NULL,
-        username TEXT UNIQUE NOT NULL,
+        username TEXT UNIQUE NOT NULL UNIQUE,
         password TEXT NOT NULL
     )
     ''')
