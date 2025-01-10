@@ -1,5 +1,5 @@
 import database  # Import Database
-from user import User  # Import User Class
+from user import User
 import sqlite3
 
 def main():

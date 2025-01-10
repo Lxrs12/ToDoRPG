@@ -7,10 +7,7 @@ def setup_database():
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        surname TEXT NOT NULL,
-        birthday TEXT NOT NULL,
-        gender TEXT NOT NULL,
+        race TEXT NOT NULL,
         username TEXT UNIQUE NOT NULL UNIQUE,
         password TEXT NOT NULL
     )
