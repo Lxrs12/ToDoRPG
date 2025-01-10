@@ -31,4 +31,3 @@ def setup_database():
 
     connection.commit()
     connection.close()
-    print("Database setup complete")
