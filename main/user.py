@@ -9,6 +9,7 @@ class User:
 
     def validate_input_types(self):
 # Function to validate the inputs
+
         if not isinstance(self.username, str):
             ui.label("Username must be a string")
 
@@ -38,13 +39,27 @@ class User:
         with ui.card():
             ui.label("User Registartion")
             race_input = ui.select(
-                label="race",
-                options = ["Human", "Elve", "Orc", "Gnome", "Undead"]
+                label="Race",
+                options = ["Human", "Elve", "Orc", "Gnome", "Undead"],
+                on_change=lambda: self.update_profile_img(race_input.value)
             )
             username_input = ui.input(label="Username")
             password_input = ui.input(label="Password", password=True)
             submit_input = ui.button("Submit", on_click=lambda: self.submit(race_input, username_input, password_input))
+            self.update_profile_img(race_input.value)
         return race_input, username_input, password_input
+
+    def update_profile_img(self, race):
+        if race == "Human":
+            ui.image("media/Mensch.png")
+        elif race == "Elve":
+            ui.image("media/Elve.png")
+        elif race == "Orc":
+            ui.image("media/org.png")
+        elif race == "Gnome":
+            ui.image("media/gnom.png")
+        elif race == "Undead":
+            ui.image("media/untot.png")
 
 
     def submit(self, race_input, username_input, password_input):
@@ -65,5 +80,5 @@ class User:
 
 
 user = User()
-user.get_information()
+race_input, username_input, password_input= user.get_information()
 ui.run()
