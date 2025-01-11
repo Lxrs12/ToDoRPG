@@ -9,7 +9,8 @@ def setup_database():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         race TEXT NOT NULL,
         username TEXT UNIQUE NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        profile_image TEXT
     )
     ''')
 
@@ -21,6 +22,7 @@ def setup_database():
         time_create DATE NOT NULL,
         time_finish DATE NOT NULL,
         priority TEXT NOT NULL,
+        completed BOOLEAN DEFAULT 0,
         user_nr INTEGER,
         FOREIGN KEY (user_nr) REFERENCES users(id)
     )
