@@ -1,11 +1,15 @@
 from nicegui import ui
 import sqlite3
 
+from unicodedata import category
+
+
 class User:
-    def __init__(self, race=None, username=None, password=None):
+    def __init__(self, race=None, username=None, password=None, category=None):
         self.race = race
         self.username = username
         self.password = password
+        self.category = category
 
     def validate_input_types(self):
 # Function to validate the inputs
@@ -43,11 +47,17 @@ class User:
                 options = ["Human", "Elve", "Orc", "Gnome", "Undead"],
                 on_change=lambda: self.update_profile_img(race_input.value)
             )
+
+            ui.label("Select your Class")
+            category_input = ui.select(
+                label="Class",
+                options= ["Knight", "Barbar", "Priest", "Rogue", "Mage"]
+            )
             username_input = ui.input(label="Username")
             password_input = ui.input(label="Password", password=True)
-            submit_input = ui.button("Submit", on_click=lambda: self.submit(race_input, username_input, password_input))
+            submit_input = ui.button("Submit", on_click=lambda: self.submit(race_input, username_input, password_input, category_input))
             self.update_profile_img(race_input.value)
-        return race_input, username_input, password_input
+        return race_input, username_input, password_input, category_input
 
     def update_profile_img(self, race):
         if race == "Human":
@@ -62,23 +72,26 @@ class User:
             ui.image("media/untot.png")
 
 
-    def submit(self, race_input, username_input, password_input):
+    def submit(self, race_input, username_input, password_input, category_input):
 # This Function is about the Button so that the user can be saved
         user = User(
             race=race_input.value,
             username=username_input.value,
-            password=password_input.value
+            password=password_input.value,
+            category=category_input.value
         )
 
         try:
             user.validate_input_types()
             user.save_to_db()
             ui.label("User was saved Succesfully")
+            ui.notify("User wurde gespeichert")
 
         except:
             ui.label("User can not be saved in the Database")
 
 
 user = User()
-race_input, username_input, password_input= user.get_information()
+race_input, username_input, password_input, category_input= user.get_information()
 ui.run()
+
