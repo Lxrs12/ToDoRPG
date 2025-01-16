@@ -192,4 +192,5 @@ with ui.column().classes('items-center'):
     ui.separator().classes('my-4')
     ui.label('Level-Status').classes('text-h4')
     level_info = ui.column().classes('w-full')
+
 ui.run()
