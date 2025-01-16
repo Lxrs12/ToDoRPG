@@ -10,7 +10,8 @@ def setup_database():
         race TEXT NOT NULL,
         username TEXT UNIQUE NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        profile_image TEXT
+        profile_image TEXT NOT NULL,
+        category TEXT NOT NULL
     )
     ''')
 
