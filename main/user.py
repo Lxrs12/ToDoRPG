@@ -94,4 +94,3 @@ class User:
 user = User()
 race_input, username_input, password_input, category_input= user.get_information()
 ui.run()
-
