@@ -1,8 +1,6 @@
 from nicegui import ui
 import sqlite3
 
-from unicodedata import category
-
 
 class User:
     def __init__(self, race=None, username=None, password=None, category=None):
@@ -30,9 +28,9 @@ class User:
         cursor = connection.cursor()
 
         cursor.execute('''
-        INSERT INTO users (race, username, password)
-        VALUES (?, ?, ?)
-        ''', (self.race, self.username, self.password))
+        INSERT INTO users (race, username, password, category) 
+        VALUES (?, ?, ?,?)
+        ''', (self.race, self.username, self.password, self.category))
 
         connection.commit()
         connection.close()
@@ -41,7 +39,8 @@ class User:
     def get_information(self):
 # Function that creates a gui and makes it able to give the User inputs
         with ui.card():
-            ui.label("User Registartion")
+            ui.label("User Registration")
+            ui.label("Select your Race")
             race_input = ui.select(
                 label="Race",
                 options = ["Human", "Elve", "Orc", "Gnome", "Undead"],
@@ -84,11 +83,10 @@ class User:
         try:
             user.validate_input_types()
             user.save_to_db()
-            ui.label("User was saved Succesfully")
-            ui.notify("User wurde gespeichert")
+            ui.notify("User was saved Succesfully")
 
         except:
-            ui.label("User can not be saved in the Database")
+            ui.notify("User can not be saved in the Database")
 
 
 user = User()
