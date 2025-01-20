@@ -8,7 +8,7 @@ def setup_database():
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         race TEXT NOT NULL,
-        username TEXT UNIQUE NOT NULL,
+        username TEXT UNIQUE NOT NULL UNIQUE,
         password TEXT NOT NULL,
         profile_image TEXT NOT NULL,
         category TEXT NOT NULL
@@ -23,6 +23,7 @@ def setup_database():
         time_create DATE NOT NULL,
         time_finish DATE NOT NULL,
         priority TEXT NOT NULL,
+        difficulty TEXT NOT NULL,
         completed BOOLEAN DEFAULT 0,
         user_nr INTEGER,
         FOREIGN KEY (user_nr) REFERENCES users(id)
