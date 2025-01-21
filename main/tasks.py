@@ -5,6 +5,7 @@ from nicegui import ui
 from leveling import LevelSystem
 
 # Aufgabenklasse
+
 class TaskMain:
     def __init__(self, title, description, time_finish, priority, difficulty):
         self.title = title

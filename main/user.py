@@ -91,3 +91,4 @@ class User:
                 ui.notify("Username already exists. Please choose a different username.")
 
 
+
