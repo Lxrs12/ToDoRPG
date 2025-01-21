@@ -18,6 +18,5 @@ user.get_information()
 def tasks_page():
     create_ui()
 
-# Starten der UI
 ui.run()
 
