@@ -13,6 +13,7 @@ task_manager = TaskManager()
 user = User()
 user.get_information()
 
+
 # Benutzeroberfläche für Aufgabenverwaltung
 @ui.page('/tasks')
 def tasks_page():
