@@ -1,9 +1,22 @@
-import database  # Import Database
+import database
 from user import User
-import sqlite3
+from tasks import TaskManager, create_ui
+from nicegui import ui
 
-def main():
-    database.setup_database()
+# Datenbank einrichten
+database.setup_database()
 
-if __name__ == "__main__":
-    main()
+# Initialisierung der Aufgabenverwaltung
+task_manager = TaskManager()
+
+# Benutzeroberfläche für Benutzerregistrierung
+user = User()
+user.get_information()
+
+# Benutzeroberfläche für Aufgabenverwaltung
+@ui.page('/tasks')
+def tasks_page():
+    create_ui()
+
+# Starten der UI
+ui.run()
