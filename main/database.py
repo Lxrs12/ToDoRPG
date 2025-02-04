@@ -4,27 +4,22 @@ def setup_database():
     connection = sqlite3.connect("database.db")
     cursor = connection.cursor()
 
-    # Existierende `users`-Tabelle löschen, falls sie existiert
-    cursor.execute('DROP TABLE IF EXISTS users')
-
     # Tabelle für Benutzer neu erstellen
     cursor.execute('''
-    CREATE TABLE users (
+    CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         race TEXT NOT NULL,
         username TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         profile_image TEXT,
-        category TEXT NOT NULL  -- Spalte `category` hinzugefügt
+        category TEXT NOT NULL
     )
     ''')
 
-    # Existierende `task`-Tabelle löschen, falls sie existiert
-    cursor.execute('DROP TABLE IF EXISTS task')
 
     # Tabelle für Aufgaben neu erstellen
     cursor.execute('''
-    CREATE TABLE task (
+    CREATE TABLE IF NOT EXISTS task (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         description TEXT NOT NULL,

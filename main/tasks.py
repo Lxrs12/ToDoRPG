@@ -5,7 +5,6 @@ from nicegui import ui
 from leveling import LevelSystem
 
 # Aufgabenklasse
-
 class TaskMain:
     def __init__(self, title, description, time_finish, priority, difficulty):
         self.title = title
@@ -42,16 +41,15 @@ class TaskManager:
         self.tasks.append(task)
         connection = sqlite3.connect("database.db")
         cursor = connection.cursor()
-        cursor.execute('''
-            INSERT INTO task (title, description, time_create, time_finish, priority, difficulty, user_nr)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', (task.title, task.description, task.time_create.isoformat(), task.time_finish.isoformat(), task.priority,
-              task.difficulty, None))
+        cursor.execute('''INSERT INTO task (title, description, time_create, time_finish, priority, difficulty, user_nr)
+                          VALUES (?, ?, ?, ?, ?, ?, ?)''',
+                          (task.title, task.description, task.time_create.isoformat(), task.time_finish.isoformat(), task.priority,
+                          task.difficulty, None))
         connection.commit()
         connection.close()
         ui.notify(f"Task '{task.title}' wurde hinzugefügt.")
 
-    def complete_task(self, title):
+    def complete_task(self, title, level_info):
         task_found = False
         for task in self.tasks:
             if task.title == title and not task.completed:
@@ -97,11 +95,10 @@ class TaskManager:
                 task.difficulty = new_difficulty
                 connection = sqlite3.connect("database.db")
                 cursor = connection.cursor()
-                cursor.execute('''
-                    UPDATE task
-                    SET title = ?, description = ?, time_finish = ?, priority = ?, difficulty = ?
-                    WHERE title = ?
-                ''', (new_title, new_description, new_time_finish.isoformat(), new_priority, new_difficulty, title))
+                cursor.execute('''UPDATE task
+                                  SET title = ?, description = ?, time_finish = ?, priority = ?, difficulty = ?
+                                  WHERE title = ?''',
+                                  (new_title, new_description, new_time_finish.isoformat(), new_priority, new_difficulty, title))
                 connection.commit()
                 connection.close()
                 ui.notify(f"Task '{title}' wurde bearbeitet.")
@@ -109,7 +106,7 @@ class TaskManager:
         if not task_found:
             ui.notify(f"Task '{title}' nicht gefunden.")
 
-
+# UI-Aktionen
 def add_task_action(title, description, year, month, day, priority, difficulty, task_manager):
     if not (title.value and description.value and year.value and month.value and day.value and priority.value and difficulty.value):
         ui.notify("Bitte füllen Sie alle Felder aus.")
@@ -118,8 +115,8 @@ def add_task_action(title, description, year, month, day, priority, difficulty, 
                     priority.value, difficulty.value)
     task_manager.add_task(task)
 
-def complete_task_action(title_to_complete, task_manager):
-    task_manager.complete_task(title_to_complete.value)
+def complete_task_action(title_to_complete, task_manager, level_info):
+    task_manager.complete_task(title_to_complete.value, level_info)
 
 def remove_task_action(title_to_remove, task_manager):
     task_manager.remove_task(title_to_remove.value)
@@ -152,7 +149,7 @@ def create_ui():
     global title, description, year, month, day, priority, difficulty, title_to_complete, title_to_remove, title_to_edit, new_title, new_description, new_year, new_month, new_day, new_priority, new_difficulty, task_list, level_info
 
     with ui.column().classes('items-center'):
-
+        # UI-Elemente für Aufgabenverwaltung
         ui.label('Neue Aufgabe hinzufügen').classes('text-h4')
         title = ui.input('Titel der Aufgabe').classes('w-full')
         description = ui.input('Beschreibung der Aufgabe').classes('w-full')
@@ -166,7 +163,7 @@ def create_ui():
         ui.separator().classes('my-4')
         ui.label('Aufgabe abschließen').classes('text-h4')
         title_to_complete = ui.input('Titel der abzuschließenden Aufgabe').classes('w-full')
-        ui.button('Aufgabe abschließen', on_click=lambda: complete_task_action(title_to_complete, task_manager)).classes('w-full')
+        ui.button('Aufgabe abschließen', on_click=lambda: complete_task_action(title_to_complete, task_manager, level_info)).classes('w-full')
 
         ui.separator().classes('my-4')
         ui.label('Aufgabe löschen').classes('text-h4')
@@ -183,7 +180,9 @@ def create_ui():
         new_day = ui.input('Neues Enddatum - Tag').classes('w-full')
         new_priority = ui.select(['low', 'medium', 'high'], label='Neue Priorität der Aufgabe').classes('w-full')
         new_difficulty = ui.select(['easy', 'medium', 'difficult'], label='Neuer Schwierigkeitsgrad der Aufgabe').classes('w-full')
-        ui.button('Aufgabe bearbeiten', on_click=lambda: edit_task_action(title_to_edit, new_title, new_description, new_year, new_priority, new_difficulty, task_manager)).classes('w-full')
+        ui.button('Aufgabe bearbeiten', on_click=lambda: edit_task_action(
+            title_to_edit, new_title, new_description, new_year, new_month, new_day, new_priority, new_difficulty, task_manager
+        )).classes('w-full')
 
         ui.separator().classes('my-4')
         ui.label('Aufgabenliste').classes('text-h4')
@@ -196,6 +195,6 @@ def create_ui():
         level_info = ui.column().classes('w-full')
         ui.button('Level-Status anzeigen', on_click=lambda: display_level_status(level_info, task_manager)).classes('w-full')
 
-    # Zu Beginn Aufgaben und Level-Status anzeigen
+    # Initiale Anzeige
     display_tasks_action(task_list, task_manager)
     display_level_status(level_info, task_manager)

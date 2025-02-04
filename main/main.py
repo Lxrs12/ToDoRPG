@@ -10,9 +10,15 @@ database.setup_database()
 task_manager = TaskManager()
 
 # Benutzeroberfläche für Benutzerregistrierung
-user = User()
-user.get_information()
+@ui.page('/register')
+def register_page():
+    user = User()
+    user.get_information()
 
+@ui.page('/login')
+def login_page():
+    user = User()
+    user.login_page()
 
 # Benutzeroberfläche für Aufgabenverwaltung
 @ui.page('/tasks')
