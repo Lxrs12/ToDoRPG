@@ -193,7 +193,6 @@ def create_ui():
         ui.separator().classes('my-4')
         ui.label('Level-Status').classes('text-h4')
         level_info = ui.column().classes('w-full')
-        ui.button('Level-Status anzeigen', on_click=lambda: display_level_status(level_info, task_manager)).classes('w-full')
 
     # Initiale Anzeige
     display_tasks_action(task_list, task_manager)
