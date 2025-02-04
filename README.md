@@ -1,11 +1,11 @@
 <h1>Dokumentation</h1>
 
-Namen der Mitglieder: Jakob Duell, Walter Lars
+<h2>Namen der Mitglieder:</h2> Jakob Duell, Walter Lars
 
-Beschreibung des Programms:
+<h2>Beschreibung des Programms:</h2>
 Das Programm ermöglicht es, einen User zu erstellen und seine Aufgaben zu verwalten
 
-Aufteilung der Aufgaben/ Inhalte
+<h2>Aufteilung der Aufgaben/ Inhalte:</h2>
 
 Lars:
 - Erstellung der Datenbank und allen anbindungen
