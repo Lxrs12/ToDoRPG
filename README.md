@@ -10,6 +10,7 @@ Das Programm ermöglicht es, einen User zu erstellen und seine Aufgaben zu verwa
 Lars:
 - Erstellung der Datenbank und allen anbindungen
 - Erstellung des Users + ui
+- Erstellung des Gits 
 
 Jakob:
 - Erstellung der Tasks + ui
